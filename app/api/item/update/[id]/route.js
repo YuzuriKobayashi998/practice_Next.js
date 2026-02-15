@@ -11,6 +11,6 @@ export async function PUT(request, context){
         await ItemModel.updateOne({_id: id}, reqBody)
         return NextResponse.json({message: "アイテム編集成功"})
     } catch {
-        return NextResponse.json({message: "アイテム編集成功"})
+        return NextResponse.json({message: "アイテム編集失敗"})
     }
 }
