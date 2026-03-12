@@ -10,6 +10,6 @@ export async function GET(request, context){
         const singleItem = await ItemModel.findById(id)
         return NextResponse.json({message:"アイテム読み込み成功(シングル)",singleItem: singleItem})
     } catch {
-        return NextResponse.json({message:"アイテム読み込み成功(シングル)"})
+        return NextResponse.json({message:"アイテム読み込み失敗(シングル)"})
     }
 }
