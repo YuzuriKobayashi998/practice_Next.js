@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 const getSingleItem = async(id) => {
     //${}を使うときはバッククォートで囲む
@@ -23,6 +24,8 @@ const ReadSingleItem = async({params}) =>{
                 <h2>{singleItem.price}</h2>
                 <hr/>
                 <p>{singleItem.description}</p>
+                <Link href={`/item/update/${singleItem._id}`}></Link>
+                <Link href={`/item/delete/${singleItem._id}`}></Link>
             </div>
         </div>
     )
