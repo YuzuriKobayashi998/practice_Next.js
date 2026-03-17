@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import useAuth from "../../utils/useAuth"
 const CreateItem = () => {
     //入力された各項目を保管する入れ物集団
     const [title, setTitle] = useState("")
@@ -9,6 +10,8 @@ const CreateItem = () => {
     const [description, setDescription] = useState("")
 
     const router = useRouter()
+    const loginUserEmail = useAuth()
+    console.log(loginUserEmail)
 
     const handlesubmit = async(e) =>{
         e.preventDefault()
@@ -26,7 +29,7 @@ const CreateItem = () => {
                     price: price,
                     image: image,
                     description: description,
-                    email:"ダミーデータ"
+                    email:loginUserEmail
                 })
                 }
             )
@@ -39,7 +42,8 @@ const CreateItem = () => {
             alert("アイテム作成失敗")
         }
     }
-
+    //ログインをしないとアイテム作成を表示しないようにする
+if(loginUserEmail){
     return(
         <div>
             <h1>アイテム作成</h1>
@@ -52,6 +56,7 @@ const CreateItem = () => {
             </form>
         </div>
     )
+}
 }
 
 export default CreateItem

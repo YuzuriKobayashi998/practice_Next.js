@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { useRouter, useParams } from "next/navigation"
 import Image from "next/image"
+import useAuth from "../../utils/useAuth"
 //contextでページのオブジェクトを受け取る
 //contextが変わったらuseEffectを実行
 const DeleteItem = (context) => {
@@ -15,6 +16,8 @@ const DeleteItem = (context) => {
     const [email, setEmail] = useState("")
 
     const router = useRouter()
+    //useAuthのreturn loginUserEmailを取得して代入している
+    const loginUserEmail = useAuth()
 
     //特定のタイミングで実行したい操作のとき（今回は1つのアイテムだけを読み込み）
     useEffect(() => {
@@ -60,7 +63,7 @@ const DeleteItem = (context) => {
             alert("アイテム編集失敗")
         }
     }
-
+if(loginUserEmail === email){
     return(
         <div>
             <h1>アイテム削除</h1>
@@ -73,6 +76,9 @@ const DeleteItem = (context) => {
             </form>
         </div>
     )
+} else {
+    return <h1>権限がありません</h1>
+}
 }
 
 export default DeleteItem

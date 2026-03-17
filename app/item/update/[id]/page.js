@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import { useRouter, useParams } from "next/navigation"
+import useAuth from "../../../utils/useAuth"
 //contextでページのオブジェクトを受け取る
 //contextが変わったらuseEffectを実行
 const UpdateItem = () => {
@@ -13,6 +14,7 @@ const UpdateItem = () => {
     const [description, setDescription] = useState("")
 
     const router = useRouter()
+    const loginUserEmail = useAuth()
 
     //特定のタイミングで実行したい操作のとき（今回は1つのアイテムだけを読み込み）
     useEffect(() => {
@@ -49,7 +51,7 @@ const UpdateItem = () => {
                     price: price,
                     image: image,
                     description: description,
-                    email:"ダミーデータ"
+                    email:loginUserEmail
                 })
                 }
             )
@@ -62,7 +64,7 @@ const UpdateItem = () => {
             alert("アイテム編集失敗")
         }
     }
-
+if(loginUserEmail === email){
     return(
         <div>
             <h1>アイテム編集</h1>
@@ -75,6 +77,9 @@ const UpdateItem = () => {
             </form>
         </div>
     )
+} else {
+    return <h1>権限がありません</h1>
+}
 }
 
 export default UpdateItem

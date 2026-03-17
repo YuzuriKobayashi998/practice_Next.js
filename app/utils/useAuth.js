@@ -1,26 +1,37 @@
 import { jwtVerify } from "jose"
 import { useRouter } from "next/navigation"
-import { useState } from "react" 
-
+import { useState, useEffect } from "react"
+//useAuthでログイン状態のチェックとユーザー情報（email）を取得している
 const useAuth = () => {
-    const [loginUserEmail, setLoginUserEmail] = useState("") 
-    const router = useRouter()
-    const token = localStorage.getItem("token")
-    //ここではトークンがあるかないかを判断
-    if(!token){
-        router.push("/user/login")
-    }
+  const [loginUserEmail, setLoginUserEmail] = useState("")
+  const router = useRouter()
+  useEffect(() => {
+    const checktoken = async () => {
+      const token = localStorage.getItem("token")
 
-    try{
+      if (!token) {
+        router.push("/user/login")
+      }
+
+      //ここではトークンがあるかないかを判断
+      if (!token) {
+        router.push("/user/login")
+      }
+
+      try {
         //eccoderで文字列をバイトデータに変換
         const secretKey = new TextEncoder().encode("next-market-app-book")
         //トークンと照合するか検証
-        const decodedJwt = jwtVerify(token, secretKey)
+        const decodedJwt = await jwtVerify(token, secretKey)
         setLoginUserEmail(decodedJwt.payload.email)
-    } catch {
+      } catch {
         //ここではトークンが有効か無効かを判断し、無効であればログイン画面に戻す
         router.push("/user/login")
-    }
+      }
+    };
+    checktoken()
+  }, [router])
+  return loginUserEmail
 }
 
 export default useAuth
