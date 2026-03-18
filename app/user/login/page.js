@@ -26,7 +26,7 @@ const Login = () => {
     }
     return (
         <div>
-            <h1>ログイン</h1>
+            <h1 className="page-title">ログイン</h1>
             <form onSubmit={handlesubmit}>
                 {/* onChange={(e)=>setEmail(e.target.value)}→入力が変更されたら内容を更新するという意味 */}
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" name="email" placeholder="メールアドレス" required/>

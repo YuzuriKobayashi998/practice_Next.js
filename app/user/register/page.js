@@ -34,7 +34,7 @@ const Register = () => {
     }
     return(
         <div>
-            <h1>ユーザー登録</h1>
+            <h1 className="page-title">ユーザー登録</h1>
             {/* 従来のHTMLのデータ送信 */}
             {/* <form action="https://localhost:3000/api/user/register" method="POST"> */}
             <form onSubmit = {handlesubmit} >
